@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Scan the webapplication
     steps:
-       - name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
         with:
           ref: main
@@ -28,7 +28,7 @@ jobs:
         uses: zaproxy/action-baseline@v0.6.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          docker_name: 'owasp/zap2docker-stable'
-          target: 'https://www.zaproxy.org'
-          rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a'
+          docker_name: "owasp/zap2docker-stable"
+          target: "https://www.zaproxy.org"
+          rules_file_name: ".zap/rules.tsv"
+          cmd_options: "-a"
