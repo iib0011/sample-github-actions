@@ -15,8 +15,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  zap_scan:
+  test:
     runs-on: ubuntu-latest
     name: Scan the web application
     permissions:
@@ -31,9 +30,9 @@ jobs:
         id: observatory
         uses: simonireilly/observatory-github-action@v0.1.0
         with:
-          web_host: https://portal.ekareinc.com
+          web_host: ${{ secrets.WEB_HOST }}
       # Use any comment plugin that you like, so long as it supports a string input
-      - name: 'Save to file'
+      - name: 'Save observatory report to file'
         run: echo "${{ steps.observatory.outputs.observatory-report }}" >> observatory.md
       - name: SonarQube
         uses: sonarsource/sonarqube-scan-action@master
@@ -55,13 +54,13 @@ jobs:
           target: "https://www.zaproxy.org"
           rules_file_name: ".zap/rules.tsv"
           cmd_options: "-a"
-      - name: 'auth'
+      - name: 'Google Auth'
         uses: 'google-github-actions/auth@v0'
         with:
           workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
           service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
 
-      - id: 'upload-file'
+      - id: 'Upload artifacts to Cloud Storage'
         uses: 'google-github-actions/upload-cloud-storage@v0'
         with:
           #path: 'zap_scan'
