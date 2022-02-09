@@ -29,7 +29,7 @@ jobs:
           ref: main
       - name: Observatory Github Action
         id: observatory
-        uses: simonireilly/observatory-github-action@v0.0.1
+        uses: simonireilly/observatory-github-action@v0.1.0
         with:
           web_host: https://portal.ekareinc.com
       # Use any comment plugin that you like, so long as it supports a string input
