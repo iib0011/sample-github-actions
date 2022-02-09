@@ -34,11 +34,7 @@ jobs:
           web_host: https://portal.ekareinc.com
       # Use any comment plugin that you like, so long as it supports a string input
       - name: 'Save to file'
-        uses: DamianReeves/write-file-action@v1.0
-        with:
-          path: ${{ env.home}}/gg
-          contents: ${{ steps.observatory.outputs.observatory-report }}
-          write-mode: overwrite
+        run: echo ${{ steps.observatory.outputs.observatory-report }} >observatory.md
       - name: ZAP Scan
         id: zapScan
         uses: iib0011/action-baseline@v0.6.1
@@ -57,7 +53,8 @@ jobs:
       - id: 'upload-file'
         uses: 'google-github-actions/upload-cloud-storage@v0'
         with:
-          path: 'zap_scan'
+          #path: 'zap_scan'
+          path: 'observatory.md'
           destination: 'bucket-name/file'
 
       # # Example of using the output
