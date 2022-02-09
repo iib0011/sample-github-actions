@@ -19,7 +19,7 @@ jobs:
   zap_scan:
     runs-on: ubuntu-latest
     name: Scan the web application
-     permissions:
+    permissions:
       contents: 'read'
       id-token: 'write'
     steps:
