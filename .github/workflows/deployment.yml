@@ -1,0 +1,60 @@
+# This is a basic workflow to help you get started with Actions
+
+name: deployment
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  deployment:
+    branches: [main]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Scan the web application
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: main
+      - name: Observatory Github Action
+        id: observatory
+        uses: simonireilly/observatory-github-action@v0.1.0
+        with:
+          web_host: ${{ secrets.WEB_HOST }}
+      # Use any comment plugin that you like, so long as it supports a string input
+      - name: 'Save observatory report to file'
+        run: echo "${{ steps.observatory.outputs.observatory-report }}" >> observatory.md
+      - name: ZAP Scan
+        id: zapScan
+        uses: iib0011/action-baseline@v0.6.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: "owasp/zap2docker-stable"
+          target: "https://www.zaproxy.org"
+          rules_file_name: ".zap/rules.tsv"
+          cmd_options: "-a"
+      - name: 'Google Auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+
+      - name: 'Upload artifacts to Cloud Storage'
+        uses: 'google-github-actions/upload-cloud-storage@v0'
+        with:
+          #path: 'zap_scan'
+          path: 'observatory.md'
+          destination: 'bucket-name/file'
+
+      # # Example of using the output
+      # - id: 'uploaded-files'
+      #   uses: 'foo/bar@main'
+      #   env:
+      #     file: '${{ steps.upload-file.outputs.uploaded }}'
