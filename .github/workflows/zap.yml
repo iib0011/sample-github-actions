@@ -33,8 +33,8 @@ jobs:
         with:
           web_host: https://portal.ekareinc.com
       # Use any comment plugin that you like, so long as it supports a string input
-      - name: 'Upload Artifact'
-        uses: DamianReeves/write-file-action
+      - name: 'Save to file'
+        uses: DamianReeves/write-file-action@v1.0
         with:
           path: ${{ env.home}}/gg
           contents: ${{ steps.observatory.outputs.observatory-report }}
