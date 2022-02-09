@@ -34,7 +34,7 @@ jobs:
           web_host: https://portal.ekareinc.com
       # Use any comment plugin that you like, so long as it supports a string input
       - name: 'Save to file'
-        run: echo ${{ steps.observatory.outputs.observatory-report }} >observatory.md
+        run: echo ${{ steps.observatory.outputs.observatory-report }} >> observatory.md
       - name: ZAP Scan
         id: zapScan
         uses: iib0011/action-baseline@v0.6.1
