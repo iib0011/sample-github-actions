@@ -35,6 +35,17 @@ jobs:
       # Use any comment plugin that you like, so long as it supports a string input
       - name: 'Save to file'
         run: echo "${{ steps.observatory.outputs.observatory-report }}" >> observatory.md
+      - name: SonarQube
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      # If you wish to fail your job when the Quality Gate is red, uncomment the
+      # following lines. This would typically be used to fail a deployment.
+      # - uses: sonarsource/sonarqube-quality-gate-action@master
+      #   timeout-minutes: 5
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
       - name: ZAP Scan
         id: zapScan
         uses: iib0011/action-baseline@v0.6.1
