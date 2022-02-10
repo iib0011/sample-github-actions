@@ -19,10 +19,6 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: main
       - name: Observatory Github Action
         id: observatory
         uses: simonireilly/observatory-github-action@v0.1.0
@@ -40,18 +36,7 @@ jobs:
           target: "https://www.zaproxy.org"
           rules_file_name: ".zap/rules.tsv"
           cmd_options: "-a"
-      - name: 'Google Auth'
-        uses: 'google-github-actions/auth@v0'
-        with:
-          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-          service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
-
-      - name: 'Upload artifacts to Cloud Storage'
-        uses: 'google-github-actions/upload-cloud-storage@v0'
-        with:
-          #path: 'zap_scan'
-          path: 'observatory.md'
-          destination: 'bucket-name/file'
+    
 
       # # Example of using the output
       # - id: 'uploaded-files'
