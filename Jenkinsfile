@@ -8,9 +8,7 @@ def checkoutGitSCM(branch,gitUrl) {
 	])
 }
 pipeline {
-	agent {
-		node { label 'test' }
-	}
+	agent any
     options {
 		timestamps()
 		disableConcurrentBuilds()
@@ -32,7 +30,6 @@ pipeline {
 			}
 		}
 		stage('ZAP'){
-			when { branch 'main' }
 			steps{
 				sh("echo ${env.WORKSPACE}; ls -l;")
 				//checkoutGitSCM("main","https://github.com/maabolihi/zap_jenkins.git")
@@ -42,7 +39,6 @@ pipeline {
 			}
 		}
 		stage('Publish'){
-			when { branch 'main' }
 			steps{
 				publishHTML([allowMissing: false,
 				alwaysLinkToLastBuild: false,
