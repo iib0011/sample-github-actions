@@ -8,35 +8,36 @@ def checkoutGitSCM(branch,gitUrl) {
 	])
 }
 pipeline {
-	agent any
-    options {
-		timestamps()
-		disableConcurrentBuilds()
-		buildDiscarder(logRotator(numToKeepStr: '10'))
-		timeout(time: 180, unit: 'MINUTES')
+	environment{
+		 OWASP_ZAP_PORT="8090"
+		 OWASP_ZAP_HOME="C:\\Program Files\\OWASP"
 	}
-	parameters {
-		string(name: 'ZAP_TARGET_URL', defaultValue:'http://www.itsecgames.com', description:'')
-		choice(name: 'ZAP_ALERT_LVL', choices: ['High', 'Medium', 'Low'], description: 'See Zap documentation, default High')
-	} 
+	agent any
 	stages{
-		stage('Initialize'){
-			steps{
-				script {
-					currentBuild.displayName = "#${env.BUILD_NUMBER}-ZAP scan on ${params.ZAP_TARGET_URL}"
-					currentWorkspace=pwd()
-					cleanWs()					
-				}
-			}
-		}
-		stage('ZAP'){
-			steps{
-				bat("echo ${env.WORKSPACE}; ls -l;")
-				checkoutGitSCM("main","https://github.com/iib0011/sample-github-actions")
-				bat("bash -c \"chmod +x ${env.WORKSPACE}\\*.sh\"")
-				bat("${env.WORKSPACE}\\validate_input.sh")
-				bat("${env.WORKSPACE}\\runZapScan.sh ${params.ZAP_TARGET_URL} ${env.WORKSPACE} ${params.ZAP_ALERT_LVL}")
-			}
+		
+		stage('Application_Dynamic_Security_Testing') {
+						steps{
+        script {
+            try {
+                startZap(host: "127.0.0.1", port: "${OWASP_ZAP_PORT}".toInteger(), timeout: 900, zapHome: "${OWASP_ZAP_HOME}")
+                sleep (time:30, unit:"SECONDS")
+                runZapCrawler(host: "http://prytanee.sn")
+            }
+            catch(err) {
+                echo "ERROR: ${err}"
+            }
+            finally {
+                try {
+                    runZapAttack()
+                }
+                catch(err){
+                    echo "ERROR: ${err}"
+                }
+                finally {
+                    archiveZap(failAllAlerts: 1, failHighAlerts: 0, failMediumAlerts: 0, failLowAlerts: 0, falsePositivesFilePath: "zapFalsePositives.json")
+                }
+            }
+        }}
 		}
 		stage('Publish'){
 			steps{
@@ -49,10 +50,5 @@ pipeline {
 				reportTitles: ''])
 			}
 		}
-	}
-	 post {
-        always {
-            bat("${env.WORKSPACE}\\runCleanup.sh")
-        }	
 	}
 }
