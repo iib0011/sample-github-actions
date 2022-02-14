@@ -50,7 +50,7 @@ jobs:
           # email subject
           subject: Post-deployment report
           # email body as text
-          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}ed
           attachments: observatory.md,report_html.html
           # comma-separated string, send email to
           to: ibracool99@gmail.com
