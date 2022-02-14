@@ -32,10 +32,10 @@ pipeline {
 		stage('ZAP'){
 			steps{
 				bat("echo ${env.WORKSPACE}; ls -l;")
-				//checkoutGitSCM("main","https://github.com/maabolihi/zap_jenkins.git")
-				bat("bash -c \"chmod +x ${env.WORKSPACE}/*.sh\"")
-				bat("${env.WORKSPACE}/validate_input.sh")
-				bat("${env.WORKSPACE}/runZapScan.sh ${params.ZAP_TARGET_URL} ${env.WORKSPACE} ${params.ZAP_ALERT_LVL}")
+				checkoutGitSCM("main","https://github.com/iib0011/sample-github-actions")
+				bat("bash -c \"chmod +x ${env.WORKSPACE}\\*.sh\"")
+				bat("${env.WORKSPACE}\\validate_input.sh")
+				bat("${env.WORKSPACE}\\runZapScan.sh ${params.ZAP_TARGET_URL} ${env.WORKSPACE} ${params.ZAP_ALERT_LVL}")
 			}
 		}
 		stage('Publish'){
@@ -52,7 +52,7 @@ pipeline {
 	}
 	 post {
         always {
-            bat("${env.WORKSPACE}/runCleanup.sh")
+            bat("${env.WORKSPACE}\\runCleanup.sh")
         }	
 	}
 }
