@@ -40,7 +40,7 @@ jobs:
       - name: mobsfscan
         uses: MobSF/mobsfscan@main
         with:
-          args: '. --json'
+          args: '. --json --output Mobsf_report.json || true'
 
       - name: Send mail
         if: always()
@@ -56,7 +56,7 @@ jobs:
           subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
           # email body as text
           body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-          attachments: results.json
+          attachments: Mobsf_report.json
           # comma-separated string, send email to
           to: ibracool99@gmail.com
           # from email name
