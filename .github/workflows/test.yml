@@ -37,6 +37,11 @@ jobs:
       #   timeout-minutes: 5
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+      - name: mobsfscan
+        uses: MobSF/mobsfscan@main
+        with:
+          args: '. --json'
+
       - name: Send mail
         if: always()
         uses: dawidd6/action-send-mail@v2
@@ -51,12 +56,10 @@ jobs:
           subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
           # email body as text
           body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+          attachments: results.json
           # comma-separated string, send email to
           to: ibracool99@gmail.com
           # from email name
           from: Github
     #android
-      - name: mobsfscan
-        uses: MobSF/mobsfscan@main
-        with:
-          args: '. --json'
+    
