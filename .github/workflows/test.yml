@@ -54,9 +54,9 @@ jobs:
           # comma-separated string, send email to
           to: ibracool99@gmail.com
           # from email name
-          from: ibracool99
+          from: Github
     #android
-      # - name: mobsfscan
-      #   uses: MobSF/mobsfscan@main
-      #   with:
-      #     args: '. --json'
+      - name: mobsfscan
+        uses: MobSF/mobsfscan@main
+        with:
+          args: '. --json'
