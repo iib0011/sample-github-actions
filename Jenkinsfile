@@ -10,7 +10,7 @@ def checkoutGitSCM(branch,gitUrl) {
 pipeline {
 	environment{
 		 OWASP_ZAP_PORT="8090"
-		 OWASP_ZAP_HOME="C:\\Program Files\\OWASP"
+		 OWASP_ZAP_HOME="C:\\Program Files\\OWASP\\Zed Attack Proxy"
 	}
 	agent any
 	stages{
