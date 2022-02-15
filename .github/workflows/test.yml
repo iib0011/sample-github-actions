@@ -65,7 +65,7 @@ jobs:
           # email body as text
           body: The build has ${{ job.status }}ed. Here is attached the Mobsf and Dependency check reports.
 
-          attachments: mobsf-report.pdf, reports
+          attachments: mobsf-report.pdf, reports/dependency-check-report.html
           # comma-separated string, send email to
           to: ibracool99@gmail.com
           # from email name
