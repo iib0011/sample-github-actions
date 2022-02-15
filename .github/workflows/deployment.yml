@@ -50,7 +50,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           # email subject
-          subject: Zap, Mozilla Observatory - Post-deployment report 
+          subject: OWASP Zap, Mozilla Observatory - Post-deployment report 
           # email body as text
           body: The post-deployment test has ${{ job.status }}ed. Here are attached the Zap and Mozilla Observatory reports.
           attachments: Observatory_report.md,Zap_report.html
