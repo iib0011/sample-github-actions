@@ -52,7 +52,7 @@ jobs:
           # email subject
           subject: Zap, Mozilla Observatory - Post-deployment report 
           # email body as text
-          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}ed. Here are attached the Zap and Mozilla Observatory reports.
+          body: The post-deployment test has ${{ job.status }}ed. Here are attached the Zap and Mozilla Observatory reports.
           attachments: Observatory_report.md,Zap_report.html
           # comma-separated string, send email to
           to: ibracool99@gmail.com
