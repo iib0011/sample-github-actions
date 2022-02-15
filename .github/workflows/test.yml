@@ -40,7 +40,7 @@ jobs:
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
       - name: Run MobSF Analysis
-        uses: fundacaocerti/mobsf-action@v1.5
+        uses: fundacaocerti/mobsf-action@master
         env:
           INPUT_FILE_NAME: tiny.apk
           SCAN_TYPE: apk
