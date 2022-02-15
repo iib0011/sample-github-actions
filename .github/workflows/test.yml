@@ -42,7 +42,7 @@ jobs:
       - name: mobsfscan
         uses: MobSF/mobsfscan@main
         with:
-          args: '. --html --output Mobsf_report.html'
+          args: '. -h --html '
       - name: ls
         run: ls
       - name: Send mail
