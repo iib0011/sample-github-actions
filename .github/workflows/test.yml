@@ -42,8 +42,9 @@ jobs:
       - name: mobsfscan
         uses: MobSF/mobsfscan@main
         with:
-          args: '. --json --output Mobsf_report.json'
-
+          args: '. --html --output Mobsf_report.html'
+      - name: ls
+        run: ls
       - name: Send mail
         uses: dawidd6/action-send-mail@v2
         with:
@@ -58,7 +59,7 @@ jobs:
           # email body as text
           body: The build has ${{ job.status }}ed. Here is attached the Mobsf report.
 
-          attachments: Mobsf_report.json
+          attachments: Mobsf_report.html
           # comma-separated string, send email to
           to: ibracool99@gmail.com
           # from email name
