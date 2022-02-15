@@ -26,7 +26,7 @@ jobs:
           web_host: ${{ secrets.WEB_HOST }}
       # Use any comment plugin that you like, so long as it supports a string input
       - name: 'Save observatory report to file'
-        run: echo "${{ steps.observatory.outputs.observatory-report }}" >> observatory.md
+        run: echo "${{ steps.observatory.outputs.observatory-report }}" >> Observatory_report.md
       - name: ZAP Scan
         id: zapScan
         uses: iib0011/action-baseline@v0.6.1
@@ -40,6 +40,7 @@ jobs:
       - name: Send mail
         if: always()
         uses: dawidd6/action-send-mail@v2
+        run: mv report_html.html Zap_report.html
         with:
           # mail server settings
           server_address: smtp.gmail.com
@@ -48,10 +49,10 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           # email subject
-          subject: Post-deployment report
+          subject: Zap, Mozilla Observatory - Post-deployment report 
           # email body as text
           body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}ed
-          attachments: observatory.md,report_html.html
+          attachments: Observatory_report.md,Zap_report.html
           # comma-separated string, send email to
           to: ibracool99@gmail.com
           # from email name

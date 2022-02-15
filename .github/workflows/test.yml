@@ -42,7 +42,7 @@ jobs:
       - name: mobsfscan
         uses: MobSF/mobsfscan@main
         with:
-          args: '. --json --output Mobsf_report.json || true'
+          args: '. --html --output Mobsf_report.html || true'
 
       - name: Send mail
         if: always()
@@ -55,10 +55,10 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           # email subject
-          subject: Test report
+          subject: Mobsf - Test report
           # email body as text
           body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}ed
-          attachments: Mobsf_report.json
+          attachments: Mobsf_report.html
           # comma-separated string, send email to
           to: ibracool99@gmail.com
           # from email name
