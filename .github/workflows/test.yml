@@ -42,7 +42,7 @@ jobs:
       - name: mobsfscan
         uses: MobSF/mobsfscan@main
         with:
-          args: '. --json --output mobsf_report.html'
+          args: '. --json --output Mobsf_report.json'
 
       - name: Send mail
         uses: dawidd6/action-send-mail@v2
@@ -56,8 +56,9 @@ jobs:
           # email subject
           subject: Mobsf - Test report
           # email body as text
-          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}ed
-          attachments: mobsf_report.html
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}ed. Here is attached the Mobsf report.
+
+          attachments: Mobsf_report.json
           # comma-separated string, send email to
           to: ibracool99@gmail.com
           # from email name

@@ -36,11 +36,12 @@ jobs:
           target: "https://www.zaproxy.org"
           rules_file_name: ".zap/rules.tsv"
           cmd_options: "-a"
+      - name: 'Rename reports'
+      - run: mv report_html.html Zap_report.html
 
       - name: Send mail
         if: always()
         uses: dawidd6/action-send-mail@v2
-        run: mv report_html.html Zap_report.html
         with:
           # mail server settings
           server_address: smtp.gmail.com
@@ -51,9 +52,9 @@ jobs:
           # email subject
           subject: Zap, Mozilla Observatory - Post-deployment report 
           # email body as text
-          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}ed
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}ed. Here are attached the Zap and Mozilla Observatory reports.
           attachments: Observatory_report.md,Zap_report.html
           # comma-separated string, send email to
           to: ibracool99@gmail.com
           # from email name
-          from: ibracool99
+          from: Github
