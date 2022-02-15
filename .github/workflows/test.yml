@@ -39,12 +39,12 @@ jobs:
       #   timeout-minutes: 5
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
-      - name: mobsfscan
-        uses: MobSF/mobsfscan@main
-        with:
-          args: '. -h --html '
-      - name: ls
-        run: ls
+      - name: Run MobSF Analysis
+        uses: fundacaocerti/mobsf-action@v1.6
+        env:
+          INPUT_FILE_NAME: tiny.apk
+          SCAN_TYPE: apk
+          OUTPUT_FILE_NAME: mobsf-report
       - name: Send mail
         uses: dawidd6/action-send-mail@v2
         with:
@@ -59,7 +59,7 @@ jobs:
           # email body as text
           body: The build has ${{ job.status }}ed. Here is attached the Mobsf report.
 
-          attachments: Mobsf_report.html
+          attachments: mobsf-report.pdf
           # comma-separated string, send email to
           to: ibracool99@gmail.com
           # from email name
