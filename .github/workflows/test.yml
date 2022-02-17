@@ -61,7 +61,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           # email subject
-          subject: Mobsf, Dependency check - Test report
+          subject: Mobsf, Dependency check - Build report
           # email body as text
           body: The build has ${{ job.status }}ed. Here are attached the Mobsf and Dependency check reports.
 
