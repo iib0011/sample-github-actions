@@ -66,7 +66,7 @@ jobs:
           # email subject
           subject: Mobsf, Dependency check - Build report
           # email body as text
-          body: The build has ${{ job.status }}ed. Here are attached the Mobsf and Dependency check reports.
+          body: The build was a ${{ job.status }}. Here are attached the Mobsf and Dependency check reports.
 
           attachments: mobsf-report.pdf, reports/dependency-check-report.html
           # comma-separated string, send email to
