@@ -67,7 +67,7 @@ jobs:
 
           attachments: mobsf-report.pdf, reports/dependency-check-report.html
           # comma-separated string, send email to
-          to: ${{env.RECIPIENTS}}
+          to: ${{secrets.RECIPIENTS}}
           # from email name
           from: Github
     #android
