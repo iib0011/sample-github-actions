@@ -27,6 +27,10 @@ jobs:
       # Use any comment plugin that you like, so long as it supports a string input
       - name: 'Save observatory report to file'
         run: echo "${{ steps.observatory.outputs.observatory-report }}" >> Observatory_report.md
+      - name: Convert Observatory_report.md to PDF
+        uses: docascod/actions-build@1.0
+        with:
+          sources: 'Observatory_report.md'
       - name: ZAP Scan
         if: always()
         id: zapScan
@@ -53,8 +57,8 @@ jobs:
           # email subject
           subject: OWASP Zap, Mozilla Observatory - Post-deployment report 
           # email body as text
-          body: The post-deployment test was a ${{ job.status }}ed. Here are attached the Zap and Mozilla Observatory reports.
-          attachments: Observatory_report.md,Zap_report.html
+          body: The post-deployment test was a ${{ job.status }}. Here are attached the Zap and Mozilla Observatory reports.
+          attachments: Observatory_report.pdf,Zap_report.html
           # comma-separated string, send email to
           to: ${{secrets.RECIPIENTS}}
           # from email name
