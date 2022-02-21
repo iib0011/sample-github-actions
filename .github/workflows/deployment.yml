@@ -58,7 +58,7 @@ jobs:
           subject: OWASP Zap, Mozilla Observatory - Post-deployment report 
           # email body as text
           body: The post-deployment test was a ${{ job.status }}. Here are attached the Zap and Mozilla Observatory reports.
-          attachments: Observatory_report.pdf,Zap_report.html
+          attachments: Observatory_report.pdf,Zap_report.html,report_json.json
           # comma-separated string, send email to
           to: ${{secrets.RECIPIENTS}}
           # from email name
