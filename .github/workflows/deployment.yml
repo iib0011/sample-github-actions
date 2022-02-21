@@ -28,7 +28,7 @@ jobs:
       - name: 'Save observatory report to file'
         run: echo "${{ steps.observatory.outputs.observatory-report }}" >> Observatory_report.md
       - name: Convert Observatory_report.md to PDF
-      - uses: 3rdJCG/mdtopdf-action
+        uses: 3rdJCG/mdtopdf-action
         with:
           root_file: 'Observatory_report.md'
       - name: ZAP Scan
