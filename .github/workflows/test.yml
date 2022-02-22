@@ -43,6 +43,10 @@ jobs:
           INPUT_FILE_NAME: sms.apk
           SCAN_TYPE: apk
           OUTPUT_FILE_NAME: mobsf-report
+      - name: reports to excel
+        if: always()
+        id: hello
+        uses: iib0011/json2excel-action@main
       - name: Send mail
         if: always()
         uses: dawidd6/action-send-mail@v2
