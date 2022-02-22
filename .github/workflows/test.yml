@@ -40,7 +40,7 @@ jobs:
         if: always()
         uses: fundacaocerti/mobsf-action@master
         env:
-          INPUT_FILE_NAME: gmail.apk
+          INPUT_FILE_NAME: sms.apk
           SCAN_TYPE: apk
           OUTPUT_FILE_NAME: mobsf-report
       - name: Send mail
