@@ -43,9 +43,9 @@ jobs:
           INPUT_FILE_NAME: sms.apk
           SCAN_TYPE: apk
           OUTPUT_FILE_NAME: mobsf-report
-      - name: reports to excel
+      - name: Mobsf report to excel
         if: always()
-        id: hello
+        id: excel
         uses: iib0011/json2excel-action@main
       - name: Send mail
         if: always()
@@ -62,7 +62,7 @@ jobs:
           # email body as text
           body: The build was a ${{ job.status }}. Here is attached the Mobsf check report.
 
-          attachments: mobsf-report.pdf,mobsf-report.json
+          attachments: mobsf-report.pdf,mobsf-report.json,report.xlsx
           # comma-separated string, send email to
           to: ${{secrets.RECIPIENTS}}
           # from email name

@@ -43,9 +43,9 @@ jobs:
           cmd_options: "-a"
       - name: 'Rename reports'
         run: mv report_html.html Zap_report.html
-      - name: report to excel
+      - name: Report to excel
         if: always()
-        id: hello
+        id: excel
         uses: iib0011/json2excel-action@main
       - name: Send mail
         if: always()
