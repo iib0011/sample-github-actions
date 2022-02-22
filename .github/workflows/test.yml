@@ -58,7 +58,7 @@ jobs:
           # email body as text
           body: The build was a ${{ job.status }}. Here is attached the Mobsf check report.
 
-          attachments: mobsf-report.pdf,
+          attachments: mobsf-report.pdf,mobsf-report.json
           # comma-separated string, send email to
           to: ${{secrets.RECIPIENTS}}
           # from email name
