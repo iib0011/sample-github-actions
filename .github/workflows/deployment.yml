@@ -33,9 +33,9 @@ jobs:
       - name: Run MobSF Analysis
         if: always()
         uses: fundacaocerti/mobsf-action@master
-        with:
-          INPUT_FILE_NAME: sms.apk
+        env:
           SCAN_TYPE: apk
+          INPUT_FILE_NAME: tiny.apk
           OUTPUT_FILE_NAME: mobsf-report
       - name: Set permissions for the excel report
         if: always()
