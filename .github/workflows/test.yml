@@ -43,6 +43,9 @@ jobs:
           INPUT_FILE_NAME: sms.apk
           SCAN_TYPE: apk
           OUTPUT_FILE_NAME: mobsf-report
+      - name: create report.xlsx
+        run: |
+          sudo touch /home/runner/work/_temp/_github_home/report.xlsx
       - name: Mobsf report to excel
         if: always()
         id: excel
