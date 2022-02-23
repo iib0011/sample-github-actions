@@ -9,7 +9,11 @@ on:
     branches: [main]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+env:
+          SCAN_TYPE: apk
+          INPUT_FILE_NAME: tiny.apk
+          OUTPUT_FILE_NAME: mobsf-report
+          REPO_NAME: ${{ github.event.repository.name }}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   test:
@@ -26,17 +30,10 @@ jobs:
           sudo chown -R 9901:9901 /home/runner/work/_temp/_github_home
 
           sudo mkdir -p /home/runner/work/$REPO_NAME
-          sudo chown -R 9901:9901 /home/runner/work/$REPO_NAME
-        env:
-          REPO_NAME: ${{ github.event.repository.name }}
-    
+          sudo chown -R 9901:9901 /home/runner/work/$REPO_NAME    
       - name: Run MobSF Analysis
         if: always()
         uses: fundacaocerti/mobsf-action@master
-        env:
-          SCAN_TYPE: apk
-          INPUT_FILE_NAME: tiny.apk
-          OUTPUT_FILE_NAME: mobsf-report
       - name: Set permissions for the excel report
         if: always()
         run: |
