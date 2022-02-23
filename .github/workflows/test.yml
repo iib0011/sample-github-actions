@@ -22,10 +22,6 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: main
       - name: Set permissions 
         if: always()
         run: |
@@ -36,6 +32,11 @@ jobs:
           sudo chown -R 9901:9901 /home/runner/work/$REPO_NAME
         env:
           REPO_NAME: ${{ github.event.repository.name }}
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: main
+     
       - name: Run MobSF Analysis
         if: always()
         uses: fundacaocerti/mobsf-action@master
