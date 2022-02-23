@@ -38,6 +38,7 @@ jobs:
           SCAN_TYPE: apk
           OUTPUT_FILE_NAME: mobsf-report
       - name: Set permissions for the excel report
+        if: always()
         run: |
           sudo chmod -R 777 .
       - name: Observatory Github Action
