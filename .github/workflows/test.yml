@@ -47,6 +47,34 @@ jobs:
       - name: create report.xlsx
         run: |
           sudo chmod -R 777 .
+      - name: Observatory Github Action
+        if: always()
+        id: observatory
+        uses: simonireilly/observatory-github-action@v0.1.0
+        with:
+          web_host: ${{ secrets.WEB_HOST }}
+      # Use any comment plugin that you like, so long as it supports a string input 
+      - name: 'Save observatory report to file'
+        if: always()
+        run: echo "${{ steps.observatory.outputs.observatory-report }}" >> Observatory_report.md
+      - name: Convert Observatory_report.md to PDF
+        if: always()
+        uses: 3rdJCG/mdtopdf-action@master
+        with:
+          root_file: 'Observatory_report.md'
+      - name: ZAP Scan
+        if: always()
+        id: zapScan
+        uses: iib0011/action-baseline@v0.6.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: "owasp/zap2docker-stable"
+          target: "https://www.zaproxy.org"
+          rules_file_name: ".zap/rules.tsv"
+          cmd_options: "-a"
+      - name: 'Rename reports'
+        if: always()
+        run: mv report_html.html Zap_report.html
       - name: Mobsf report to excel
         if: always()
         id: excel
