@@ -46,7 +46,7 @@ jobs:
           OUTPUT_FILE_NAME: mobsf-report
       - name: create report.xlsx
         run: |
-          sudo chmod -R 755 .
+          sudo chmod -R 777 .
       - name: Mobsf report to excel
         if: always()
         id: excel
