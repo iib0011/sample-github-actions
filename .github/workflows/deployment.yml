@@ -67,7 +67,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           # email subject
-          subject: Mobsf OWASP Zap, Mozilla Observatory - Post-deployment report 
+          subject: OWASP Zap, Mozilla Observatory - Post-deployment report 
           # email body as text
           body: The post-deployment test was a ${{ job.status }}. Here are attached the Zap, Mobsf and Mozilla Observatory reports.
           attachments: Observatory_report.pdf,Zap_report.html,report.xlsx
