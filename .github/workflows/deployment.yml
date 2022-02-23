@@ -19,6 +19,27 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps:
+      - name: Set permissions 
+        if: always()
+        run: |
+          sudo mkdir -p /home/runner/work/_temp/_github_home
+          sudo chown -R 9901:9901 /home/runner/work/_temp/_github_home
+
+          sudo mkdir -p /home/runner/work/$REPO_NAME
+          sudo chown -R 9901:9901 /home/runner/work/$REPO_NAME
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+    
+      - name: Run MobSF Analysis
+        if: always()
+        uses: fundacaocerti/mobsf-action@master
+        env:
+          INPUT_FILE_NAME: sms.apk
+          SCAN_TYPE: apk
+          OUTPUT_FILE_NAME: mobsf-report
+      - name: create report.xlsx
+        run: |
+          sudo chmod -R 777 .
       - name: Observatory Github Action
         id: observatory
         uses: simonireilly/observatory-github-action@v0.1.0
@@ -58,10 +79,10 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           # email subject
-          subject: OWASP Zap, Mozilla Observatory - Post-deployment report 
+          subject: Mobsf OWASP Zap, Mozilla Observatory - Post-deployment report 
           # email body as text
-          body: The post-deployment test was a ${{ job.status }}. Here are attached the Zap and Mozilla Observatory reports.
-          attachments: Observatory_report.pdf,Zap_report.html,report_json.json
+          body: The post-deployment test was a ${{ job.status }}. Here are attached the Zap, Mobsf and Mozilla Observatory reports.
+          attachments: Observatory_report.pdf,Zap_report.html,report_json.json,mobsf-report.pdf,report.xlsx
           # comma-separated string, send email to
           to: ${{secrets.RECIPIENTS}}
           # from email name
