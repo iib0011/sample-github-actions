@@ -76,7 +76,7 @@ jobs:
       - name: Mobsf report to excel
         if: always()
         id: excel
-        uses: iib0011/json2excel-action@main
+        uses: iib0011/mobsf-zap-2excel-action@main
       - name: Send mail
         if: always()
         uses: dawidd6/action-send-mail@v2
