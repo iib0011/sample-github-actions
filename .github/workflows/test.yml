@@ -39,6 +39,9 @@ jobs:
       - uses: montudor/action-zip@master
         with:
           args: zip -qq -r repo.zip .
+      - name: ls
+        if: always()
+        run: ls
       - name: Run MobSF Analysis
         if: always()
         uses: fundacaocerti/mobsf-action@master
